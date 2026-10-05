@@ -1,0 +1,94 @@
+{
+  "baseline": "ImperialFlow V1 local governance runtime",
+  "prepared_at": "2026-10-05T08:25:29+08:00",
+  "copied_file_count": 17,
+  "files": [
+    {
+      "path": "imperialflow/__init__.py",
+      "sha256": "4d721121a89bf0d9136edb63944fc50ac768537073e4f8c51ae9a0a7d290fa7b",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/__main__.py",
+      "sha256": "6f4a1788ac7ac4cd5b803b75d63325eb14d03a44b89dc0bea61acaad91fc927a",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/__init__.py",
+      "sha256": "5d5e3462bdb4c112ccf8ee598327b7f85b5e61312c24d2cadecb015abc6e4356",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/errors.py",
+      "sha256": "0d958ae070dcf9b689575ca6718d9de9067b9eaf925f1b1cd2bd54c358f2a188",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/evidence.py",
+      "sha256": "56a72c9e52f4712fa6914b662fc2732d8c1ede140e87a48556f4a60bcc7218c4",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/models.py",
+      "sha256": "e1efe80763f3bf70cad39c08a99da09c1e14166300048ddbf1d7a200c96713cb",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/roles.py",
+      "sha256": "3807c4309d75072df8a5be7c751b1ccd7f30d0e826b0cda73552efb47eca756e",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/state_machine.py",
+      "sha256": "75dea4701f7d73206be4fd228047f0c0f9a28f494e5b762f6945da038fcbc283",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/trace.py",
+      "sha256": "62ea297e899f453ffb9c633b68d8a4fc51879607bbafe85de9f7f3aeb8fd273d",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/transition.py",
+      "sha256": "eba87f67febc019a73d4fc326b549941d517b12957358945623373b07163765a",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/validator.py",
+      "sha256": "3750182eabbfca9fb7442cbbad6105997dce5b8dce8e7520e9e8554f61c42c60",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/runtime/views.py",
+      "sha256": "625f4042966d6490e89dbb5584e917af9b56da3ab99dc46aca72768f7ebbfa14",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/schemas/role_capabilities.json",
+      "sha256": "65390a9eb32d474245c936dd92477fdc49d8f982a7bd23d636ba761f52258075",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "imperialflow/schemas/transition_request.schema.json",
+      "sha256": "acb376d4c8a6ec7f20b712c7fb8e2bc48d1062ced44a851b1e3c892a655be5ec",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "requirements-governance-lock.txt",
+      "sha256": "84ff14847bb334b645a9c4ff73c7f750ab938afb5eeaa534eba0deef7f9c33ab",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "requirements-governance.txt",
+      "sha256": "d81909cfbaafe6871cbb23703355e54653474374d7914eabc18b6995e1514788",
+      "source_bytes_preserved": true
+    },
+    {
+      "path": "tests/governance/test_runtime.py",
+      "sha256": "7f6bfaad3d823e0c78ab05cd32aa0a026ba36c85cebf41cb32617a28d294ef2d",
+      "source_bytes_preserved": true
+    }
+  ],
+  "excluded_project_adapter": "imperialflow/migrate.py",
+  "note": "Runtime, schemas, governance tests and dependency lists copied without changing their bytes; project task records are not exported."
+}

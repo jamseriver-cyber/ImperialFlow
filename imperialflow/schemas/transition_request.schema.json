@@ -1,0 +1,522 @@
+{
+  "$defs": {
+    "Action": {
+      "enum": [
+        "IMPERIAL_INTERRUPT",
+        "CLASSIFY_INTERRUPT",
+        "START_TASK",
+        "APPROVE_EXECUTION",
+        "RETURN_TO_ZHONGSHU",
+        "HOLD",
+        "CANCEL",
+        "ACCEPT_DELIVERY",
+        "REQUEST_CHANGES",
+        "ACCEPT_CHECKPOINT",
+        "FORWARD_TO_ZHONGSHU",
+        "FORWARD_TO_EXECUTOR",
+        "HOLD_FOR_STATE_RECONCILIATION",
+        "REPORT_STATE_CONFLICT",
+        "REJECT_INVALID_REQUEST",
+        "REQUEST_MENXIA_REVIEW",
+        "REPORT_PLAN_BLOCKER",
+        "APPROVE_PLAN",
+        "RETURN_FOR_REVISION",
+        "REQUEST_IMPERIAL_AUTHORIZATION",
+        "REPORT_EXECUTION_BLOCKER",
+        "REQUEST_ROUTE_CHANGE",
+        "GOVERNANCE_PATCH_COMPLETE",
+        "STATE_RECONCILED",
+        "REPORT_GOVERNANCE_CONFLICT",
+        "FORWARD_TO_NEXT_EXECUTOR",
+        "REQUEST_JUSTICE_VALIDATION",
+        "REPORT_PLAN_DEFECT",
+        "REQUEST_IMPERIAL_ACCEPTANCE",
+        "RETURN_FOR_CORRECTION",
+        "REQUEST_IMPERIAL_CHECKPOINT_DECISION",
+        "RETURN_FOR_REMEDIATION",
+        "REPORT_CRITICAL_FINDING"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "ActionObject": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/Action"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "ActionObject",
+      "type": "object"
+    },
+    "Actor": {
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/Role"
+        },
+        "identity": {
+          "minLength": 1,
+          "title": "Identity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "identity"
+      ],
+      "title": "Actor",
+      "type": "object"
+    },
+    "EvidenceArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "task_id": {
+          "minLength": 1,
+          "title": "Task Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "status": {
+          "default": "VALID",
+          "enum": [
+            "VALID",
+            "VOID"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "normalization": {
+          "default": "RAW",
+          "enum": [
+            "RAW",
+            "LF",
+            "PACKAGE"
+          ],
+          "title": "Normalization",
+          "type": "string"
+        },
+        "actor": {
+          "$ref": "#/$defs/Actor"
+        },
+        "plan_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plan Ref"
+        },
+        "package_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Package Ref"
+        },
+        "validation_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Validation Ref"
+        },
+        "scope_paths": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scope Paths",
+          "type": "array"
+        },
+        "execution_roles": {
+          "items": {
+            "$ref": "#/$defs/Role"
+          },
+          "title": "Execution Roles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "task_id",
+        "kind",
+        "path",
+        "sha256",
+        "actor"
+      ],
+      "title": "EvidenceArtifact",
+      "type": "object"
+    },
+    "EvidenceKind": {
+      "enum": [
+        "START_AUTHORIZATION",
+        "INTAKE",
+        "PLAN",
+        "REVIEW",
+        "EXECUTION_PACKAGE",
+        "EXECUTION_AUTHORIZATION",
+        "DELIVERABLE",
+        "VALIDATION",
+        "ACCEPTANCE",
+        "GOVERNANCE",
+        "CHECKPOINT",
+        "INTERRUPT"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    },
+    "Interrupt": {
+      "additionalProperties": false,
+      "properties": {
+        "classification": {
+          "enum": [
+            "NOTE",
+            "CHANGE_REQUEST",
+            "NEW_TASK",
+            "HOLD",
+            "CANCEL",
+            "URGENT_FIX"
+          ],
+          "title": "Classification",
+          "type": "string"
+        },
+        "impact": {
+          "enum": [
+            "implementation-only",
+            "interface",
+            "scientific-method",
+            "governance",
+            "none"
+          ],
+          "title": "Impact",
+          "type": "string"
+        },
+        "resume_role": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Role"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resume_phase": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Phase"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "classification",
+        "impact"
+      ],
+      "title": "Interrupt",
+      "type": "object"
+    },
+    "Phase": {
+      "enum": [
+        "INTAKE",
+        "PLAN",
+        "REVIEW",
+        "EXECUTION_PREP",
+        "AWAITING_IMPERIAL_AUTHORIZATION",
+        "EXECUTE",
+        "VALIDATE",
+        "AWAITING_IMPERIAL_ACCEPTANCE",
+        "CHECKPOINT_AUDIT",
+        "AWAITING_IMPERIAL_CHECKPOINT_DECISION"
+      ],
+      "title": "Phase",
+      "type": "string"
+    },
+    "Result": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/ResultType"
+        },
+        "value": {
+          "$ref": "#/$defs/ResultValue"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "title": "Result",
+      "type": "object"
+    },
+    "ResultType": {
+      "enum": [
+        "TASK_START",
+        "INTAKE_RESULT",
+        "PLAN_RESULT",
+        "REVIEW_RESULT",
+        "PACKAGE_RESULT",
+        "EXECUTION_RESULT",
+        "VALIDATION_RESULT",
+        "IMPERIAL_DECISION",
+        "GOVERNANCE_RESULT",
+        "INTERRUPT_RESULT",
+        "CHECKPOINT_AUDIT",
+        "BLOCKER"
+      ],
+      "title": "ResultType",
+      "type": "string"
+    },
+    "ResultValue": {
+      "enum": [
+        "COMPLETE",
+        "APPROVE",
+        "REJECT",
+        "GRANTED",
+        "PASS",
+        "FAIL",
+        "VALIDATION_PASS",
+        "VALIDATION_FAIL",
+        "AUDIT_PASS",
+        "AUDIT_FINDINGS",
+        "ACCEPTED",
+        "HOLD",
+        "CANCEL",
+        "CHANGES_REQUESTED",
+        "STATE_CONFLICT",
+        "BLOCKED",
+        "NOTE",
+        "CHANGE_REQUEST",
+        "NEW_TASK",
+        "URGENT_FIX"
+      ],
+      "title": "ResultValue",
+      "type": "string"
+    },
+    "Role": {
+      "enum": [
+        "EMPEROR",
+        "PRINCE",
+        "ZHONGSHU",
+        "MENXIA",
+        "SHANGSHU",
+        "PERSONNEL",
+        "REVENUE",
+        "RITES",
+        "WAR",
+        "JUSTICE",
+        "WORKS",
+        "YUSHITAI"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "Routing": {
+      "additionalProperties": false,
+      "properties": {
+        "next_role": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Role"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "next_phase": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Phase"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "next_role",
+        "next_phase"
+      ],
+      "title": "Routing",
+      "type": "object"
+    },
+    "TaskState": {
+      "enum": [
+        "NOT_STARTED",
+        "AUTHORIZED",
+        "INTAKE",
+        "PLAN",
+        "REVIEW",
+        "EXECUTION_PREP",
+        "AWAITING_IMPERIAL_AUTHORIZATION",
+        "EXECUTION",
+        "VALIDATION",
+        "AWAITING_IMPERIAL_ACCEPTANCE",
+        "DONE",
+        "BLOCKED",
+        "CHANGES_REQUESTED",
+        "CANCELLED",
+        "VOID"
+      ],
+      "title": "TaskState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Protocol Version",
+      "type": "integer"
+    },
+    "request_id": {
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "invocation_id": {
+      "minLength": 1,
+      "title": "Invocation Id",
+      "type": "string"
+    },
+    "task_id": {
+      "minLength": 1,
+      "title": "Task Id",
+      "type": "string"
+    },
+    "expected_revision": {
+      "minimum": 0,
+      "title": "Expected Revision",
+      "type": "integer"
+    },
+    "actor": {
+      "$ref": "#/$defs/Actor"
+    },
+    "result": {
+      "$ref": "#/$defs/Result"
+    },
+    "routing": {
+      "$ref": "#/$defs/Routing"
+    },
+    "action": {
+      "$ref": "#/$defs/ActionObject"
+    },
+    "target_state": {
+      "$ref": "#/$defs/TaskState"
+    },
+    "evidence_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "artifacts": {
+      "items": {
+        "$ref": "#/$defs/EvidenceArtifact"
+      },
+      "title": "Artifacts",
+      "type": "array"
+    },
+    "interrupt": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Interrupt"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reconciliation_state": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TaskState"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "request_id",
+    "invocation_id",
+    "task_id",
+    "expected_revision",
+    "actor",
+    "result",
+    "routing",
+    "action",
+    "target_state"
+  ],
+  "title": "TransitionRequest",
+  "type": "object"
+}
